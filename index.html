@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>San Francisco Cable Car System - Before & After</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="css/leaflet.css" type="text/css" rel=stylesheet>
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+    <!--put your Bootstrap stylesheet links below this comment and above style.css-->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="css/style.css">
+
+
+	
+</head>
+<body>
+<div class="jumbotron text-center">
+<h2>San Francisco Cable Car System - Before & After</h2>
+</div>
+<h2>Background</h2>
+ 
+<p>The cable car system of San Francisco attracts tourists and locals alike every year and generates a lot of revenue for the city. The system was invented by Andrew Halladie and started running on August 2, 1873, replacing horse drawn carriages that couldn't make it to the stop of the steep hills, leaving passengers injured or killed. 23 lines ran throughout the entire city, but gradually decreased to what is currently today 3 lines running within more of the downtown core. The areas the three lines run through today include Chinatown, Fisherman's Wharf, Financial District, North Beach, Russian Hill, Nob Hill, and Union Square. These lines include the Powell-Mason, Powell-Hyde, and the California.
+There were several factors that led to the decline of many of the lines. One included the 1906 earthquake and fire resulting in many of the powerhouses and barns that stored many of the cars along many of the old lines to be destroyed along with the cars stored within them. This resulted in 8 lines operating by 1912. Another included innovations in new forms of transportation that paved the way for streetcars and buses run in San Francisco.</p>
+
+<div class="container">
+<div class="row">
+<div class="col-md-4">
+<div class="thumbnail"> 
+<a href="img/Hallidie.JPG" target="_blank">
+<img src="img/Hallidie.JPG" alt="Hallidie" style="width:50%">
+<div class="caption">
+<p>Andrew Halladie. The inventor of the cable car system.</p>
+ </div>
+ </a>
+ </div>
+ </div>
+ 
+<div class="container">
+<div class="col-md-4">
+<div class="thumbnail"> 
+<a href="img/powellcable.JPG" target="_blank">
+<img src="img/powellcable.JPG" alt="powellcable" style="width:100%">
+<div class="caption">
+<p>Cable Cars running along a former line.</p>
+ </div>
+ </a>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+<h2>The Fight To Remain Open</h2>
+ 
+<p>Mayor of San Francisco Roger Lapham proposed to replace the cable car system back then with buses. This outraged many native San Franciscans such as this one woman named Friedel Klussmann. Klussmann led the movement to save the cable cars by forming a petition and raising awareness as to what the mayor's plans were. After garnering a lot of support, the petition created a proposition that landed on the ballot to save the cable car system and was passed by many voters, which resulted in the three lines. The cable cars are a moving landmark to both San Francisco and also the entire nation that attract tourists and locals every year to experience what transportation was like before the automobile was invented.</p>
+
+<div class="container">
+<div class="row">
+<div class="col-md-4"> 
+<div class="thumbnail"> 
+<a href="img/Klussmann.JPG" target="_blank">
+<img src="img/Klussmann.JPG" alt="Klussmann" style="width:100%">
+<div class="caption">
+<p>Friedel Klussmann</p>
+ </div>
+ </a>
+ </div>
+ </div>
+ </div>
+ </div>
+
+<div class="jumbotron text-center">
+<h2>Map</h2>
+<p>In the upper right hand corner of the map lists the options for current cable car routes, former cable car routes, and the bus routes that run along the former routes along with their corresponding checkboxes. Check the boxes to display which of the three options you want to view. Additionally, clicking on the lines will display a pop up that lists the name of the lines.</p>
+</div>
+<div id="mapid" style="width: 100%; height: 800px;"></div>
+ <!-- Add the Leaflet JavaScript library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+  <!-- Load Esri Leaflet from CDN -->
+  <script src="https://unpkg.com/esri-leaflet@2.3.0/dist/esri-leaflet.js"
+  integrity="sha512-1tScwpjXwwnm6tTva0l0/ZgM3rYNbdyMj5q6RSQMbNX6EUMhYDE3pMRGZaT41zHEvLoWEK7qFEJmZDOoDMU7/Q=="
+  crossorigin=""></script>
+<!--
+<script src="C:/Users/Jia-Lin/Desktop/Cable_Car/my_website/js/jquery.js"></script>
+<script src="C:/Users/Jia-Lin/Desktop/Cable_Car/my_website/js/leaflet.js"></script>
+-->
+<script>
+
+	
+// Add OpenStreetMap tile layer to map element
+//	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+//		maxZoom: 18,
+//		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+//			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+//			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+//		id: 'mapbox.streets',
+//	}).addTo(mymap);
+ var osm = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+//		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox.streets',
+	});
+ // Create line feature for current Cable Car System, style and add to map
+ // load GeoJSON from an external file
+ 
+ 
+ 
+// $.getJSON("C:/Users/Jia-Lin/Desktop/Cable_Car/my_website/js/Cable_Car_Routes_Current.geojson",function(data){
+//    // add GeoJSON layer to the map once the file is loaded
+//    L.geoJson(data,{
+//        onEachFeature: function (feature, layer) {
+//            layer.bindPopup(feature.properties.LINE_NAME);
+//        }
+//    }).addTo(mymap);
+//})
+ 
+
+//  $.getJSON("C:/Users/Jia-Lin/Desktop/Cable_Car/my_website/js/Original_Cable_Car_Routes.geojson",function(data){
+//    // add GeoJSON layer to the map once the file is loaded
+//    var originalroutes = L.geoJson(data,{
+//        onEachFeature: function (feature, layer) {
+//            layer.bindPopup(feature.properties.LINE_NAME);
+//        }
+//    });
+//   return originalroutes;
+//})
+
+//var busroutes = L.layerGroup();
+ 
+var busroutes = L.esri.featureLayer({
+//  url: 'https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Cable_Cars/FeatureServer/2?token=ODmxot7jT26qhx2QULoM9Tmy4g24Kl0JHKyFaCVm8hKqsa4TrAbf7FinCwqt_6RizhB9ZzB348BYyEjijyB994tcVm2W4dLODXKMfV3XSMA5YZ8K4-C_XuDlEyIL_bc3uTGSYpLw2OrLRnz8YHPXVqb6WMcnzVZb7lLdMvz17MBAZt8TkYQjNaAcDycIK6rvf-b1SWL4iRbwjA40eyMMwH_NC430-6AI_YTr2bMZPLE2P_uqGS5K0z4fhNdcoq48sOTj-2hJcDhyeU614gSjqw..'
+url: 'https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Cable_Cars/FeatureServer/2',
+
+});
+busroutes.bindPopup(function (layer) {
+    return L.Util.template('<p>Line Name {LINE_NAME}</p>', layer.feature.properties);
+  });
+// Creating layer group
+
+
+var routes = L.esri.featureLayer({
+  url: 'https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Cable_Cars/FeatureServer/4',
+style: function (feature) {
+ var c;
+ var o = 0.75;
+ switch (feature.properties.LINE_NAME) {
+ case 'California':
+ c = '#007D7D';
+ break;
+ case 'Powell-Hyde':
+ c = '#00FF3C';
+ break;
+ case 'Powell-Mason':
+ c = '#FF0000';
+ break;
+ default:
+ c = '#C0C0C0';
+}
+ return { color: c, opacity: o, weight: 5 };
+                                 }
+});
+routes.bindPopup(function (layer) {
+    return L.Util.template('<p>Line Name {LINE_NAME}</p><img src="{Pic}" height="70" width="100"><p><a href="#{LINE_NAME}">Read More</a></p>', layer.feature.properties);
+});
+ 
+ var originalroutes = L.esri.featureLayer({
+  url: 'https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Cable_Cars/FeatureServer/5',
+ });
+originalroutes.bindPopup(function (layer) {
+    return L.Util.template('<p>Line Name {Line_Name}</p><img src="{Pic}" height="70" width="100"><p><a href="#{Line_Name}">Read More</a></p>', layer.feature.properties);
+  });
+//const buses = L.esri.featureLayer({
+  //url: 'https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Cable_Cars/FeatureServer/2?token=S-6rnlfGu_AfoUJuXfxAcozOEgPa786ulFWrqtauQNipMKxbnQ1pY7W0XlN9XjvhtZM_HlKv4yOedVEqogNIOgBzP8fCGjU2_IhdoijvG_zaR__kGrTLQO_qycSl5FjjcftE9YYNXrIZvAZ06btw9xwpjWjNeIPDYYjeWhtNBjqWfTsecLC0iumWuZDRMxG3hPDutvdsxr98FYAChGRL2BKfgYQFt4BQiTrE1I8UJ0lA56ZWlG7HI6N_x2MC-A0AceourR8nUgatwBmoP9_0qw..'
+//}).addTo(mymap);
+// Create variable to hold map element, give initial settings to map
+//var mymap = L.map('mapid').setView([37.773972, -122.431297], 13);
+ 
+
+
+
+var mymap = L.map('mapid', {
+		center: [37.773972, -122.431297],
+		zoom: 13,
+		layers: [osm, routes, originalroutes, busroutes]
+	});
+var overlays = {
+		"Current Routes": routes,
+        "Original Routes": originalroutes,
+        "Bus Routes": busroutes
+};
+var basemaps = {"openstreetmap": osm};
+L.control.layers(basemaps,overlays).addTo(mymap);
+
+
+
+</script>
+<br><div class="jumbotron text-center">
+<h2>Current Lines</h2>
+<p>Pictures of the three cable car lines that are currently running in San Francisco.</p>
+</div>
+<div class="container">
+<div class="row">
+<div class="col-md-4">
+<a name="Powell-Hyde"></a>
+<h3>Powell & Hyde Line</h3>
+<div class="thumbnail">
+<a href="img/Powell_Hyde_Line.jpg" target="_blank">
+<img src="img/Powell_Hyde_Line.jpg" alt="Hyde" style="width:100%">
+<div class="caption">
+<p>Powell & Hyde Line runs from Union Square to Aquatic Park by Ghirardelli Square through Russian Hill, past crooked Lombard Street, down the steep Hyde Street Hill.</p>
+ </div>
+ </a>
+ </div>
+ </div>
+<!-- </div>-->
+<!-- </div>-->
+ 
+<!--<div class="container">-->
+<!--<div class="row">-->
+<div class="col-md-4">
+<a name="Powell-Mason"></a>
+<h3>Powell & Mason Line</h3>
+<div class="thumbnail">
+<a href="img/Powell_Mason_Line.jpg" target="_blank">
+<img src="img/Powell_Mason_Line.jpg" alt="Mason" style="width:100%">
+<div class="caption">
+<p>Powell & Mason Line runs from Union Square to the heart of Fisherman's Wharf, through Russian Hill and North Beach.</p>
+ </div>
+ </a>
+ </div>
+ </div>
+<!-- </div>-->
+<!-- </div>-->
+ 
+<!--<div class="container">-->
+<!--<div class="row">-->
+<div class="col-md-4">
+<a name="California"></a>
+<h3>California Line</h3>
+<div class="thumbnail">
+<a href="img/California_Line.jpg" target="_blank">
+<img src="img/California_Line.jpg" alt="California" style="width:100%">
+<div class="caption">
+<p>California Line from Financial District at Market Street to Nob Hill at Van Ness Avenue along California Street, crossing Chinatown at Grant Avenue along the way.</p>
+</div>
+ </a>
+ </div>
+ </div>
+ </div>
+ </div>
+ 
+<div class="jumbotron text-center">
+<h2>Former Lines</h2>
+<p>Pictures of many of the former cable car lines that are now replaced by the majority of the bus lines of San Francisco. Some of the lines have multiple branches.</p>
+</div>
+<div class="container">
+<div class="row">
+<div class="col-md-4">
+<a name="California Street Line"></a>
+<a name="Jones Street Line & Jones Shuttle"></a>
+<h3>California Street Railway</h3>
+<div class="thumbnail">
+<a href="img/california_jones.jpg" target="_blank">
+<img src="img/california_jones.jpg" alt="California_Jones" style="width:100%">
+<div class="caption">
+<p>There was a branch of the California Street line known as the O'Farrell, Jones & Hyde Streets line that ran along part of what is currently the Powell-Line.</p>
+ </div>
+ </a>
+ </div>
+ </div>
+<!-- </div>-->
+<!-- </div>-->
+ 
+<!--<div class="container">-->
+<!--<div class="row">-->
+<div class="col-md-4">
+<a name="Sutter Street Line"></a>
+<h3>Sutter Street Railway</h3>
+<div class="thumbnail">
+<a href="img/sutter_railway1.jpg" target="_blank">
+<img src="img/sutter_railway1.jpg" alt="Sutter" style="width:100%">
+<div class="caption">
+<p>The Sutter Street Railway consisted of both the Pacific Street Line and the Sutter Street Line.</p>
+ </div>
+ </a>
+ </div>
+ </div>
+<!-- </div>-->
+<!-- </div>-->
+
+<!--<div class="container">-->
+<!--<div class="row">-->
+<div class="col-md-4">
+<a name="Geary Street, Park & Ocean R. R."></a>
+<h3>Geary Street, Park and Ocean Railway</h3>
+<div class="thumbnail">
+<a href="img/geary_railway.jpg" target="_blank">
+<img src="img/geary_railway.jpg" alt="Geary" style="width:100%">
+<div class="caption">
+<p>The Geary Street, Park and Ocean Railway ran from Union Square to Golden Gate Park near Haight/Ashbury Neighborhood. The MUNI 38 lines run along the route today.</p>
+ </div>
+ </a>
+ </div>
+ </div>
+ </div>
+<!-- </div>-->
+ 
+<!--<div class="container">-->
+<div class="row">
+<div class="col-md-4">
+<a name="Presidio & Ferries R. R."></a>
+<h3>Presidio & Ferries Railway</h3>
+<div class="thumbnail">
+<a href="img/Presidio-Ferries.jpg" target="_blank">
+<img src="img/Presidio-Ferries.jpg" alt="Presidio" style="width:100%">
+<div class="caption">
+<p>The Presidio & Ferries Railway ran in between Downtown and the Presidio with stops along the way in North Beach and Russian Hill.</p>
+ </div>
+ </a>
+ </div>
+ </div>
+<!-- </div>-->
+<!-- </div>-->
+ 
+<!--<div class="container">-->
+<!--<div class="row">-->
+<div class="col-md-4">
+<a name="Market Street Railway"></a>
+<h3>Market Street Railway</h3>
+<div class="thumbnail">
+<a href="img/market_railway.jpg" target="_blank">
+<img src="img/market_railway.jpg" alt="Market" style="width:100%">
+<div class="caption">
+<p>The Market Street Railway ran from the waterfront of San Francisco to the eastern neighborhoods. The line originated at the Ferry Building on the Embarcadero and went along Market Street in the heart of the Financial District. After leaving the Financial District, the line started to diverge into seperate branches of lines.</p> 
+<p>One line went to the northern part of Golden Gate Park where it met with the Geary Street, Park and Ocean Railway Line. The other line went through the heart of Haight/Ashbury neighborhood ending at Stanyan Street at Golden Gate Park. The other two lines went alongside of the Castro District and the Mission District.</p>
+ </div>
+ </a>
+ </div>
+ </div>
+<!-- </div>-->
+<!-- </div>-->
+ 
+<!--<div class="container">-->
+<!--<div class="row">-->
+<div class="col-md-4">
+<a name="Clay & Sacramento Line"></a>
+<a name="Pacific-Jackson Line"></a>
+<a name="Powell-Mason Line"></a>
+<h3>Ferries & Cliff House Railway</h3>
+<div class="thumbnail">
+<a href="img/Ferries_Cliff_House.jpg" target="_blank">
+<img src="img/Ferries_Cliff_House.jpg" alt="Ferries" style="width:100%">
+<div class="caption">
+<p>The Ferries & Cliff House Railway Line originated from the Powell Street Cable Car Turnaround at Powell and Market just a few blocks south of Union Square and by the Powell Street BART/MUNI Station and from the Ferry Building on The Embarcadero. The railway line consisted of two branches that include the Powell Street Lines and the Clay Sacramento Line. The lines ran along where both the two Powell Lines run along to Fisherman's Wharf. The Clay Sacramento Line started from the Ferry Building and went through North Beach and Russian Hill, ending just a few blocks south of the Presidio.</p> 
+ </div>
+ </a>
+ </div>
+ </div>
+ </div>
+<!-- </div>-->
+ 
+<!--<div class="container">-->
+<div class="row">
+<div class="col-md-4">
+<a name="Howard Street Line"></a>
+<a name="Haight & Leavenworth Line"></a>
+<a name="Ellis Street Line"></a>
+<h3>Omnibus Railway & Cable Company</h3>
+<div class="thumbnail">
+<a href="img/Omnibus_Railway.jpg" target="_blank">
+<img src="img/Omnibus_Railway.jpg" alt="Omnibus" style="width:100%">
+<div class="caption">
+<p>The Omnibus Railway consited of three branches which included the Howard Street Line, Haight & Leavenworth Street Lines, and Ellis Street Line.</p> 
+ </div>
+ </a>
+ </div>
+ </div>
+ </div>
+ </div>
+</body>
+</html>
