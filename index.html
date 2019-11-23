@@ -138,7 +138,24 @@ There were several factors that led to the decline of many of the lines. One inc
 var busroutes = L.esri.featureLayer({
 //  url: 'https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Cable_Cars/FeatureServer/2?token=ODmxot7jT26qhx2QULoM9Tmy4g24Kl0JHKyFaCVm8hKqsa4TrAbf7FinCwqt_6RizhB9ZzB348BYyEjijyB994tcVm2W4dLODXKMfV3XSMA5YZ8K4-C_XuDlEyIL_bc3uTGSYpLw2OrLRnz8YHPXVqb6WMcnzVZb7lLdMvz17MBAZt8TkYQjNaAcDycIK6rvf-b1SWL4iRbwjA40eyMMwH_NC430-6AI_YTr2bMZPLE2P_uqGS5K0z4fhNdcoq48sOTj-2hJcDhyeU614gSjqw..'
 url: 'https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Cable_Cars/FeatureServer/2',
-
+style: function (feature) {
+ var c;
+ var o = 0.75;
+ switch (feature.properties.LINE_NAME) {
+ case 'C':
+ c = '#000000';
+ break;
+ case 'PH':
+ c = '#000000';
+ break;
+ case 'PM':
+ c = '#000000';
+ break;
+ default:
+ c = '#1E90FF';
+}
+ return { color: c, opacity: o, weight: 5 };
+                                 }
 });
 busroutes.bindPopup(function (layer) {
     return L.Util.template('<p>Line Name {LINE_NAME}</p>', layer.feature.properties);
@@ -173,6 +190,54 @@ routes.bindPopup(function (layer) {
  
  var originalroutes = L.esri.featureLayer({
   url: 'https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Cable_Cars/FeatureServer/5',
+style: function (feature) {
+ var c;
+ var o = 0.75;
+ switch (feature.properties.Line_Name) {
+ case 'California Street Line':
+ c = '#007D7D';
+ break;
+ case 'Pacific-Jackson Line':
+ c = '#00FF3C';
+ break;
+ case 'Powell-Mason Line':
+ c = '#FF0000';
+ break;
+ case 'Clay & Sacramento Line':
+ c = '#FA8072';
+ break;
+ case 'Ellis Street Line':
+ c = '#808000';
+ break;
+ case 'Geary Street, Park & Ocean R. R.':
+ c = '#BA55D3';
+ break;
+ case 'Haight & Leavenworth Line':
+ c = '#DB7093';
+ break;
+ case 'Howard Street Line':
+ c = '#98FB98';
+ break;
+ case 'Jones Street Line & Jones Shuttle':
+ c = '#3CB371';
+ break;
+ case 'Market Street Railway':
+ c = '#FF1493';
+ break;
+ case 'Pacific Sutter Line':
+ c = '#D2691E';
+ break;
+ case 'Presidio & Ferries R. R.':
+ c = '#DAA520';
+ break;
+ case 'Sutter Street Line':
+ c = '#DC143C';
+ break;
+ default:
+ c = '#C0C0C0';
+}
+ return { color: c, opacity: o, weight: 5 };
+                                 }
  });
 originalroutes.bindPopup(function (layer) {
     return L.Util.template('<p>Line Name {Line_Name}</p><img src="{Pic}" height="70" width="100"><p><a href="#{Line_Name}">Read More</a></p>', layer.feature.properties);
